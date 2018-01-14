@@ -30,6 +30,7 @@ app.use(function (req, res, next) {
     next(err);
 });
 
+
 //Set default route
 app.get('/', function (req, res) {
    res.send();// pass path to home page.
