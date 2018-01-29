@@ -22,9 +22,6 @@ var bookingSchema = new Schema({
         type: String
     },
 
-    month: {
-        type: String
-    },
 
     dateIn: {
         type: Date
@@ -33,10 +30,6 @@ var bookingSchema = new Schema({
     dateOut: {
         type: Date
     },
-
-    available: {
-        type: Boolean
-    }
 
 
 });

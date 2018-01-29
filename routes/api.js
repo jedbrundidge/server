@@ -7,18 +7,43 @@ var Booking = require('../models/bookingSchema');
 
 
 
-//get from the database
+//get all objects from the database
 router.get('/booking', function (req, res, next) {
     Booking.find({}).then(function (booking) {
         res.send(booking);
-    })
+    });
+});
+
+router.get('/booking/cabinOne', function (req, res, next) {
+
+    Booking.find({"cabinNum": 1}).then(function (booking) {
+        res.send(booking);
+    });
+
+});
+
+router.get('/booking/cabinTwo', function (req, res, next) {
+
+    Booking.find({"cabinNum": 2}).then(function (booking) {
+        res.send(booking);
+    });
+
+});
+
+router.get('/booking/cabinThree', function (req, res, next) {
+
+    Booking.find({"cabinNum": 3}).then(function (booking) {
+        res.send(booking);
+    });
+
 });
 
 //route handler for booking cabins
-router.post('/booking', function (req, res, next) {
-    Booking.create(req.body).then(function (booking) {
-        res.send(booking);
-    }).catch(next);
+router.post('/booking/addReservation', function (req, res, next) {
+    Booking.create(req.body, function (err, post) {
+        if(err) return next(err);
+        res.json(post);
+    });
 });
 
 //delete reservations
