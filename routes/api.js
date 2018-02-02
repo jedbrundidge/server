@@ -4,8 +4,15 @@
 var express = require('express');
 var router = express.Router();
 var Booking = require('../models/bookingSchema');
+var request = require('request');
 
 
+
+router.get('/weather', function (req, res, next) {
+    request({
+        uri: 'http://5a3844bcbe179d0012970288.mockapi.io/api/v1/weather'
+    }).pipe(res);
+});
 
 //get all objects from the database
 router.get('/booking', function (req, res, next) {
@@ -37,6 +44,7 @@ router.get('/booking/cabinThree', function (req, res, next) {
     });
 
 });
+
 
 //route handler for booking cabins
 router.post('/booking/addReservation', function (req, res, next) {
