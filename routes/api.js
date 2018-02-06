@@ -4,20 +4,48 @@
 var express = require('express');
 var router = express.Router();
 var Booking = require('../models/bookingSchema');
+var rp = require('request-promise');
 var request = require('request');
+const url = require('url');
+const querystring = require('querystring');
 
 
 
-router.get('/weather', function (req, res, next) {
+
+/*router.get('/weather/averageTemps', function () {
     request({
         uri: 'http://5a3844bcbe179d0012970288.mockapi.io/api/v1/weather'
     }).pipe(res);
+});*/
+
+router.get('/weather/average_temps/:day', function (req, res) {
+
+    const options = {
+        method: 'GET',
+        url: 'https://5a3844bcbe179d0012970288.mockapi.io/api/v1/weather/:day',
+        simple: false,
+        json: true,
+        rejectUnauthorized: false
+    };
+
+    rp(options)
+        .then(function (response) {
+            console.log(res.send(response));
+            //console.log(req.params);
+            //res.send("Query" + req.query);
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
 });
+
+
+
 
 //get all objects from the database
 router.get('/booking', function (req, res, next) {
     Booking.find({}).then(function (booking) {
-        res.send(booking);
+        response.getBody()
     });
 });
 
@@ -51,6 +79,7 @@ router.post('/booking/addReservation', function (req, res, next) {
     Booking.create(req.body, function (err, post) {
         if(err) return next(err);
         res.json(post);
+        console.log("Sent");
     });
 });
 
