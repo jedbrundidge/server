@@ -18,21 +18,28 @@ const querystring = require('querystring');
     }).pipe(res);
 });*/
 
-router.get('/weather/average_temps/:day', function (req, res) {
+router.get('/weather/average_temps/', function (req, res) {
 
     const options = {
         method: 'GET',
-        url: 'https://5a3844bcbe179d0012970288.mockapi.io/api/v1/weather/:day',
+        url: 'https://5a3844bcbe179d0012970288.mockapi.io/api/v1/weather/',
         simple: false,
         json: true,
-        rejectUnauthorized: false
+        rejectUnauthorized: false,
+        headers: {
+            'User-Agent': 'Request-Promise'
+        },
+        qs: {
+            day: 1
+        }
+
     };
 
     rp(options)
-        .then(function (response) {
+        .then(function (response, body) {
             console.log(res.send(response));
             //console.log(req.params);
-            //res.send("Query" + req.query);
+            //res.send("Query" + req.query.qs);
         })
         .catch(function (err) {
             console.log(err);
