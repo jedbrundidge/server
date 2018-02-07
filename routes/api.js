@@ -6,8 +6,7 @@ var router = express.Router();
 var Booking = require('../models/bookingSchema');
 var rp = require('request-promise');
 var request = require('request');
-const url = require('url');
-const querystring = require('querystring');
+
 
 
 
@@ -26,20 +25,16 @@ router.get('/weather/average_temps/', function (req, res) {
         simple: false,
         json: true,
         rejectUnauthorized: false,
-        headers: {
-            'User-Agent': 'Request-Promise'
-        },
         qs: {
-            day: 1
+            day: 4
         }
-
     };
 
     rp(options)
-        .then(function (response, body) {
+        .then(function (response) {
             console.log(res.send(response));
             //console.log(req.params);
-            //res.send("Query" + req.query.qs);
+            //res.send("Query" + req.query);
         })
         .catch(function (err) {
             console.log(err);

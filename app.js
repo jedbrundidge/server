@@ -22,7 +22,6 @@ app.use(function(req, res, next) {
 
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(bodyparser.json());
-app.use(express.static(path.resolve(__dirname, '')));//set directory for static files
 app.use('/api', routes);
 
 app.set('views', path.resolve(__dirname, ''));
