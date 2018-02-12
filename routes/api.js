@@ -10,12 +10,11 @@ var request = require('request');
 
 
 
-
-/*router.get('/weather/averageTemps', function () {
+router.get('/weather/averageTemps', function (req, res, next) {
     request({
         uri: 'http://5a3844bcbe179d0012970288.mockapi.io/api/v1/weather'
     }).pipe(res);
-});*/
+});
 
 router.get('/weather/average_temps/', function (req, res) {
 
