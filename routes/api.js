@@ -77,11 +77,21 @@ router.get('/booking/cabinThree', function (req, res, next) {
 
 //route handler for booking cabins
 router.post('/booking/addReservation', function (req, res, next) {
-    Booking.create(req.body, function (err, post) {
-        if(err) return next(err);
-        res.json(post);
-        console.log("Sent");
-    });
+    debugger;
+   Booking.find({
+       cabinNum: req.body.cabinNum
+   }).then( bookings => {
+       bookings.forEach ( booking => {
+          const x1 = new Date(booking.dateIn)
+           const y1 = new Date(booking.dateOut)
+           const {dateIn, dateOut} = req.body
+           const x = new Date(dateIn), y  =new Date(dateOut)
+           if ( (x >= x1 && y <= y1) || (x >= x1 && x1 >= y) || (x >= y1 && y1 >= y) ) {
+              return res.status(400).send('Reservation already Taken')
+           }
+       })
+       return Booking.create(req.body)
+   }).then ( newBooking => res.json(newBooking))
 });
 
 //delete reservations
